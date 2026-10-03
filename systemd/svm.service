@@ -1,0 +1,21 @@
+[Unit]
+Description=SVM+ V11.3 VPS Platform — Made by AnkitCoder
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/svm
+EnvironmentFile=/opt/svm/.env
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/svm/venv/bin/python /opt/svm/bot.py
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGINT
+LimitNOFILE=65535
+SyslogIdentifier=svm
+
+[Install]
+WantedBy=multi-user.target

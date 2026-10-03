@@ -1,0 +1,24 @@
+# Only for a native 'local-ai' binary. If LocalAI runs in Docker, `install.sh ai-install` uses the container's own restart policy instead.
+[Unit]
+Description=SVM+ LocalAI runtime
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=localai
+Group=localai
+WorkingDirectory=/opt/svm/localai
+ExecStart=/usr/local/bin/local-ai run --models-path /opt/svm/localai/models --address 127.0.0.1:8080
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+KillSignal=SIGINT
+LimitNOFILE=65535
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+SyslogIdentifier=svm-localai
+
+[Install]
+WantedBy=multi-user.target
